@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
 public class Practice01Translation extends RelativeLayout {
     Button animateBt;
     ImageView imageView;
+    int pos = 0;
+    int end = 4;
 
     public Practice01Translation(Context context) {
         super(context);
@@ -49,6 +52,31 @@ public class Practice01Translation extends RelativeLayout {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                switch (pos) {
+                    case 0:
+                        imageView.animate().translationX(100).setDuration(500);
+                        break;
+                    case 1:
+                        imageView.animate().translationX(0).setDuration(500);
+
+                        break;
+                    case 2:
+                        imageView.animate().translationY(100).setDuration(500);
+
+                        break;
+                    case 3:
+                        imageView.animate().translationY(0).setDuration(500);
+                        break;
+                    case 4:
+                        imageView.animate().translationZ(100).setDuration(500);
+                        break;
+                    default:
+                        break;
+                }
+                    pos++;
+                if (pos==end){
+                    pos=0;
+                }
             }
         });
     }
@@ -74,5 +102,10 @@ public class Practice01Translation extends RelativeLayout {
         public void getOutline(View view, Outline outline) {
             outline.setConvexPath(path);
         }
+    }
+
+    private float pixtoDp(float dp){
+        DisplayMetrics displayMetrics =new DisplayMetrics();
+        return displayMetrics.density*dp;
     }
 }
